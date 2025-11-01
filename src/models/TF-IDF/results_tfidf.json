@@ -1,0 +1,94 @@
+{
+    "Logistic Regression": {
+        "CV_F1_macro_mean": 0.8694872668376081,
+        "CV_F1_macro_std": 0.013494889922159714,
+        "CV_Accuracy_mean": 0.8669117647058823,
+        "CV_Accuracy_std": 0.013437990354777258
+    },
+    "Random Forest (depth=10)": {
+        "CV_F1_macro_mean": 0.9067020299030716,
+        "CV_F1_macro_std": 0.004657461203028024,
+        "CV_Accuracy_mean": 0.9066176470588235,
+        "CV_Accuracy_std": 0.003925396416187968
+    },
+    "Random Forest (depth=20)": {
+        "CV_F1_macro_mean": 0.9063770577001214,
+        "CV_F1_macro_std": 0.006601874695750833,
+        "CV_Accuracy_mean": 0.9066176470588235,
+        "CV_Accuracy_std": 0.00651472248039312
+    },
+    "Logistic Regression (Test)": {
+        "Accuracy": 0.8647058823529412,
+        "F1_weighted": 0.8651153781185208,
+        "Classification_Report": {
+            "COVID-19": {
+                "precision": 0.8884462151394422,
+                "recall": 0.8383458646616542,
+                "f1-score": 0.8626692456479691,
+                "support": 266.0
+            },
+            "NORMAL": {
+                "precision": 0.907608695652174,
+                "recall": 0.8882978723404256,
+                "f1-score": 0.8978494623655914,
+                "support": 188.0
+            },
+            "PNEUMONIA": {
+                "precision": 0.8081632653061225,
+                "recall": 0.8761061946902655,
+                "f1-score": 0.8407643312101911,
+                "support": 226.0
+            },
+            "accuracy": 0.8647058823529412,
+            "macro avg": {
+                "precision": 0.8680727253659128,
+                "recall": 0.8675833105641151,
+                "f1-score": 0.8670943464079173,
+                "support": 680.0
+            },
+            "weighted avg": {
+                "precision": 0.8670618028954177,
+                "recall": 0.8647058823529412,
+                "f1-score": 0.8651153781185208,
+                "support": 680.0
+            }
+        }
+    },
+    "Random Forest (Test)": {
+        "Accuracy": 0.8955882352941177,
+        "F1_weighted": 0.8954539399885812,
+        "Classification_Report": {
+            "COVID-19": {
+                "precision": 0.9040590405904059,
+                "recall": 0.9210526315789473,
+                "f1-score": 0.9124767225325885,
+                "support": 266.0
+            },
+            "NORMAL": {
+                "precision": 0.9,
+                "recall": 0.8617021276595744,
+                "f1-score": 0.8804347826086957,
+                "support": 188.0
+            },
+            "PNEUMONIA": {
+                "precision": 0.8820960698689956,
+                "recall": 0.8938053097345132,
+                "f1-score": 0.8879120879120879,
+                "support": 226.0
+            },
+            "accuracy": 0.8955882352941177,
+            "macro avg": {
+                "precision": 0.8953850368198005,
+                "recall": 0.8921866896576783,
+                "f1-score": 0.8936078643511239,
+                "support": 680.0
+            },
+            "weighted avg": {
+                "precision": 0.8956373773344721,
+                "recall": 0.8955882352941177,
+                "f1-score": 0.8954539399885812,
+                "support": 680.0
+            }
+        }
+    }
+}
