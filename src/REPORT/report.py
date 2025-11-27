@@ -13,21 +13,25 @@ from sklearn.preprocessing import label_binarize
 import torch
 import torch.nn as nn
 from torchvision import transforms, datasets, models
+from tensorflow.keras.models import load_model
+import tensorflow as tf
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing import image_dataset_from_directory
 
 sns.set(style="whitegrid")
 
 # ===========================
 # Cấu hình đường dẫn
 # ===========================
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SRC_DIR = os.path.join(BASE_DIR, "src")
 MODELS_DIR = os.path.join(SRC_DIR, "models")
 DATA_DIR = os.path.join(BASE_DIR, "data")
 CV_TEST_DIR = os.path.join(DATA_DIR, "images", "test")
 METADATA_CSV = os.path.join(DATA_DIR, "metadata.csv")
-CV_MODEL_PATH = os.path.join(MODELS_DIR, "cv_model.pt")
-NLP_MODEL_PATH = os.path.join(MODELS_DIR, "bert_random_forest.pkl")
-RULES_PATH = os.path.join(MODELS_DIR, "rules_apriori.pkl")
+CV_MODEL_PATH = os.path.join(MODELS_DIR, "CV\\cv_model.keras")
+NLP_MODEL_PATH = os.path.join(MODELS_DIR, "BERT\\bert_random_forest.pkl")
+RULES_PATH = os.path.join(MODELS_DIR, "DM\\rules_apriori.pkl")
 OUTPUT_DIR = os.path.join(SRC_DIR, "outputs")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -155,47 +159,60 @@ except Exception:
 # --- Mô hình CV ---
 cv_model = None
 cv_label_names = None
+
 if os.path.exists(CV_MODEL_PATH):
-    if os.path.isdir(CV_TEST_DIR):
-        tmp = datasets.ImageFolder(CV_TEST_DIR)
-        cv_label_names = sorted(tmp.classes)
-    num_classes = len(cv_label_names) if cv_label_names else None
-    res = models.resnet18(weights=None)
-    if num_classes:
-        res.fc = nn.Linear(res.fc.in_features, num_classes)
-    state = torch.load(CV_MODEL_PATH, map_location=device)
     try:
-        res.load_state_dict(state)
-        cv_model = res.to(device).eval()
-        print("CV model loaded.")
+        cv_model = load_model(CV_MODEL_PATH)
+        print("Loaded CV model (Keras).")
     except Exception as e:
-        print("Error loading CV model:", e)
+        raise RuntimeError(f"Không thể load model Keras: {e}")
 else:
     print("CV model not found.")
 
+
 # ===========================
-# Chạy dự đoán CV
+# TẠO DATASET TEST
 # ===========================
 cv_trues = cv_preds = cv_probs = None
+
 if cv_model and os.path.isdir(CV_TEST_DIR):
-    transform_test = transforms.Compose([
-        transforms.Resize((128,128)),
-        transforms.ToTensor(),
-        transforms.Normalize([0.5,0.5,0.5],[0.5,0.5,0.5])
-    ])
-    test_dataset = datasets.ImageFolder(CV_TEST_DIR, transform=transform_test)
-    test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=32, shuffle=False)
-    cv_label_names = test_dataset.classes
-    preds, probs, trues = [], [], []
-    with torch.no_grad():
-        for imgs, labels in test_loader:
-            imgs = imgs.to(device)
-            outputs = cv_model(imgs)
-            p = torch.softmax(outputs, dim=1).cpu().numpy()
-            preds.extend(np.argmax(p, axis=1))
-            probs.extend(p)
-            trues.extend(labels.numpy())
-    cv_trues, cv_preds, cv_probs = np.array(trues), np.array(preds), np.array(probs)
+
+    IMG_SIZE = (224, 224)   # với VGG16, MobileNet, ResNet của TF → 224x224 chuẩn nhất
+
+    test_ds = image_dataset_from_directory(
+        CV_TEST_DIR,
+        labels="inferred",
+        label_mode="categorical",   # lấy one-hot để khớp softmax
+        batch_size=32,
+        image_size=IMG_SIZE,
+        shuffle=False
+    )
+
+    cv_label_names = test_ds.class_names
+    print("Classes:", cv_label_names)
+
+    # Chuẩn hóa y như MobileNet/VGG16: ảnh từ [0,255] → [0,1]
+    def preprocess(img, label):
+        img = tf.cast(img, tf.float32) / 255.0
+        return img, label
+
+    test_ds = test_ds.map(preprocess)
+
+    # ===========================
+    # RUN INFERENCE
+    # ===========================
+    probs_list = []
+    labels_list = []
+
+    for batch_imgs, batch_labels in test_ds:
+        p = cv_model.predict(batch_imgs, verbose=0)
+        probs_list.append(p)
+        labels_list.append(batch_labels.numpy())
+
+    cv_probs = np.concatenate(probs_list, axis=0)
+    cv_trues = np.argmax(np.concatenate(labels_list, axis=0), axis=1)
+    cv_preds = np.argmax(cv_probs, axis=1)
+
     print("CV prediction completed:", len(cv_trues))
 
 # ===========================
