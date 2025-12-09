@@ -12,9 +12,7 @@ import torch
 import pickle
 import random
 
-# =========================
-# 🎨 SIDEBAR GIAO DIỆN CHÍNH
-# =========================
+
 st.sidebar.title("🩺 Medical Diagnosis App")
 st.sidebar.markdown("Ứng dụng hỗ trợ dự đoán bệnh từ ảnh X-ray và dữ liệu lâm sàng.")
 
