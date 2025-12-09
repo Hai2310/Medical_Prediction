@@ -1,0 +1,12 @@
+{
+    "Logistic Regression": {
+        "accuracy": 0.8720588235294118,
+        "f1": 0.8718168401273034,
+        "report": "              precision    recall  f1-score   support\n\n    COVID-19     0.8419    0.9211    0.8797       266\n      NORMAL     0.8920    0.8351    0.8626       188\n   PNEUMONIA     0.8967    0.8451    0.8702       226\n\n    accuracy                         0.8721       680\n   macro avg     0.8769    0.8671    0.8708       680\nweighted avg     0.8740    0.8721    0.8718       680\n"
+    },
+    "Random Forest": {
+        "accuracy": 0.875,
+        "f1": 0.8749274026204674,
+        "report": "              precision    recall  f1-score   support\n\n    COVID-19     0.8815    0.8947    0.8881       266\n      NORMAL     0.8791    0.8511    0.8649       188\n   PNEUMONIA     0.8640    0.8717    0.8678       226\n\n    accuracy                         0.8750       680\n   macro avg     0.8749    0.8725    0.8736       680\nweighted avg     0.8750    0.8750    0.8749       680\n"
+    }
+}
