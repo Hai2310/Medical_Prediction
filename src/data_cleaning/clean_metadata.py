@@ -11,7 +11,23 @@ df = pd.read_csv("../../data/metadata.csv")
 df.head()
 mso.matrix(df)
 
+df["notes"] = (
+    df["clinical_notes"].fillna("") + " " +
+    df["other_notes"].fillna("")
+).str.strip()
 
+# Giữ các cột cần thiết
+keep_cols = [
+    "notes",
+    "age",
+    "sex",
+    "temperature",
+    "pO2_saturation",
+    "finding"
+]
+
+# Drop toàn bộ cột thừa
+df_final = df[keep_cols]
 
 # === Làm sạch cột notes  ===
 def clean_notes(text):
