@@ -214,13 +214,13 @@ Support: 0.12 | Confidence: 0.81 | Lift: 2.5
 
 ### **Nhóm 6 – MEDICAL_PREDICTION**
 
-| STT | Họ và tên | GitHub username | 
-|----|---------|-----------------|--------|
-| 1 | **Hoàng Minh Hải** | `Hai2310` | 
-| 2 | **Trần Phúc Long** | `shiromin639` | 
-| 3 | **Nguyễn Quang Huy** | `HuyAA-DD` | |
-| 4 | **Mai Tiến Hoàng** | `TienHoang5085` | 
-| 5 | **Nguyễn Khánh Lâm** | `LamNguyen-Hust` | 
+| STT | Họ và tên | GitHub username |
+|----:|-----------|----------------|
+| 1 | **Hoàng Minh Hải** | `Hai2310` |
+| 2 | **Trần Phúc Long** | `shiromin639` |
+| 3 | **Nguyễn Quang Huy** | `HuyAA-DD` |
+| 4 | **Mai Tiến Hoàng** | `TienHoang5085` |
+| 5 | **Nguyễn Khánh Lâm** | `LamNguyen-Hust` |
 
 
 ---
