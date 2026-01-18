@@ -210,15 +210,18 @@ Support: 0.12 | Confidence: 0.81 | Lift: 2.5
 
 ---
 
-## 👨‍💻 Tác giả
+## 👥 Nhóm thực hiện
 
-**Nhóm 6**
-**Hoàng Minh Hải**
-**Trần Phúc Long**
-**Nguyễn Quang Huy**
-**Mai Tiến Hoàng**
-**Nguyễn Khánh Lâm**
-- Project học tập & nghiên cứu Machine Learning trong y tế
+### **Nhóm 6 – MEDICAL_PREDICTION**
+
+| STT | Họ và tên | GitHub username | 
+|----|---------|-----------------|--------|
+| 1 | **Hoàng Minh Hải** | `Hai2310` | 
+| 2 | **Trần Phúc Long** | `shiromin639` | 
+| 3 | **Nguyễn Quang Huy** | `HuyAA-DD` | |
+| 4 | **Mai Tiến Hoàng** | `TienHoang5085` | 
+| 5 | **Nguyễn Khánh Lâm** | `LamNguyen-Hust` | 
+
 
 ---
 
