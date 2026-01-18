@@ -45,7 +45,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODELS_DIR = os.path.join(BASE_DIR, "models")
 OUTPUT_DIR = os.path.join(BASE_DIR, "outputs")
 
-CV_MODEL_PATH = os.path.join(MODELS_DIR, "CV", "cv_model.keras")
+CV_MODEL_PATH = os.path.join(MODELS_DIR, "CV", "efficientnetb0_model.keras")
 TFIDF_VECTORIZER_PATH = os.path.join(MODELS_DIR, "TF-IDF", "tfidf_vectorizer.pkl")
 TFIDF_MODEL_PATH = os.path.join(MODELS_DIR, "TF-IDF", "tfidf_random_forest.pkl")
 BERT_MODEL_PATH = os.path.join(MODELS_DIR, "BERT", "bert_random_forest.pkl")
